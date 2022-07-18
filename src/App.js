@@ -30,22 +30,16 @@ class App extends React.Component {
       Namevalide: "form-control is-valid"
     })
 
-    if (e.target.value === "") {
-      this.setState({ Namevalide: "form-control is-invalid" })
-    }
-
+    e.target.value === "" && this.setState({ Namevalide: "form-control is-invalid" })
   }
   handleLastNameChange = (e) => {
     this.setState({
       lastName: e.target.value,
       SureNameValide: "form-control is-valid"
     })
-    if (e.target.value === "") {
-      this.setState({ SureNameValide: "form-control is-invalid" })
-    }
+    e.target.value === "" && this.setState({ SureNameValide: "form-control is-invalid" })
 
   }
-
 
   handleEmailChange = (e) => {
 
@@ -55,16 +49,8 @@ class App extends React.Component {
 
     })
 
-    if (regex.test(e.target.value) === true) {
-      this.setState({
-        validEmail: "form-control is-valid"
-      })
-    } else {
-      this.setState({
-        validEmail: "form-control is-invalid"
-      })
-    }
-
+    regex.test(e.target.value) && this.setState({ validEmail: "form-control is-valid" })
+    !regex.test(e.target.value) && this.setState({ validEmail: "form-control is-invalid" })
 
   }
 
@@ -72,19 +58,11 @@ class App extends React.Component {
     this.setState({
       password: e.target.value,
     })
-    if (this.state.password.length >= 5) {
-      this.setState({
-        passwordIsValid: true,
-        validPassword: "form-control is-valid"
-      })
-    } else {
-      this.setState({
-        passwordIsValid: false
-      })
-    }
-    if (e.target.value.length < 6) {
-      this.setState({ validPassword: "form-control is-invalid" })
-    }
+
+    this.state.password.length >= 5 && this.setState({ passwordIsValid: true, validPassword: "form-control is-valid" })
+    !this.state.password.length >= 5 && this.setState({ passwordIsValid: false })
+
+    e.target.value.length < 6 && this.setState({ validPassword: "form-control is-invalid" })
 
   }
 
@@ -94,20 +72,17 @@ class App extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    if (this.state.emailIsValid = true && this.state.passwordIsValid) {
+    if ((this.state.emailIsValid && this.state.passwordIsValid) && (this.state.firstName || this.state.lastName != "")) {
       this.setState({
         isSubmitted: true
       })
 
     }
+    // this.state.emailIsValid === true && this.state.passwordIsValid && this.setState({ isSubmitted: true })
 
   }
 
-
   render() {
-
-
-
     return (
       <>
         {this.state.isSubmitted ? (
@@ -137,7 +112,7 @@ class App extends React.Component {
               <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
                 <input type="email" className={this.state.validEmail} id="exampleInputEmail1" aria-describedby="emailHelp" value={this.state.email} onChange={this.handleEmailChange} />
-                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+
               </div>
 
               <div className="mb-3">
